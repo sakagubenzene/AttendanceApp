@@ -1,0 +1,36 @@
+<%= form_with(model: @user, local: true) do |form| %>
+  <% if @user.errors.any? %>
+    <div>
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, "氏名" %>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div>
+    <%= form.label :employee_number, "社員番号" %>
+    <%= form.text_field :employee_number, class: 'form-control' %>
+  </div>
+
+  <div>
+    <%= form.label :password, "パスワード" %>
+    <%= form.password_field :password, class: 'form-control' %>
+  </div>
+
+  <div>
+    <%= form.label :password_confirmation, "パスワード確認" %>
+    <%= form.password_field :password_confirmation, class: 'form-control' %>
+  </div>
+
+  <div>
+    <%= form.submit yield(:button_text), class: "btn btn-primary" %>
+  </div>
+<% end %>

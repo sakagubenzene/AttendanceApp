@@ -1,0 +1,10 @@
+<h1>出退勤記録</h1>
+<table>
+  <% @attendances.each do |attendance| %>
+    <tr>
+      <td><%= attendance.user.name %></td>
+      <td><%= attendance.begin_at %></td>
+      <td><%= attendance.finish_at %></td>
+    </tr>
+  <% end %>
+</table>

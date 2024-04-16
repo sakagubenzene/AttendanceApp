@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_16_065556) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_16_082904) do
   create_table "attendances", force: :cascade do |t|
     t.integer "user_id", null: false
     t.datetime "begin_at"
@@ -37,6 +37,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_16_065556) do
     t.string "employee_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "remember_digest"
   end
 
   add_foreign_key "attendances", "users"
