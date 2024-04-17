@@ -83,3 +83,29 @@ input {
   background: rgba(0, 0, 0, 0.5); /* 半透明の黒色 */
   z-index: 1040; /* モーダルより下 */
 }
+
+#current_time {
+  font-size: 200%;
+}
+
+#_message_receiver_id {
+  display: block;
+}
+
+#_message_content {
+  display: block;
+  width: 100%;
+  margin-left: 0;
+}
+
+.close-modal {
+  border-style: none;
+  background-color: white;
+}
+
+.taikin {
+  width: 100%;
+  margin-top: auto;
+  text-align: center;
+  margin-bottom: 5%;
+}

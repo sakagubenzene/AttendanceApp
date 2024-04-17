@@ -1,0 +1,11 @@
+<section class="form">
+  <%= form_with(model: @post) do |f| %>
+    <%= f.fields_for :attendance do |a| %>
+      <%= a.hidden_field :begin_at, value: Time.current %>
+    <% end %>
+    <%= f.submit "出勤登録", class: "btn btn-primary" %>
+  <% end %>
+
+  <h3>未読メッセージ:</h3>
+
+</section>

@@ -1,0 +1,19 @@
+<section class="form">
+  <%= form_with(model: @post, local: true) do |f| %>
+    <div class="field">
+      <%= f.hidden_field :finish_at, value: Time.current.strftime("%Y-%m-%d %H:%M:%S") %>
+      <div id="current_time" class="current-time"></div>
+    </div>
+
+    <%= f.fields_for :message do |m| %>
+      <div class="field">
+        <%= m.collection_select :receiver_id, User.all, :id, :name, include_blank: '選択してください' %>
+        <%= m.text_area :content %>
+      </div>
+    <% end %>
+
+    <div class="taikin">
+      <%= f.submit "退勤登録", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</section>

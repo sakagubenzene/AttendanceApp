@@ -10,13 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_16_082904) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_17_001708) do
   create_table "attendances", force: :cascade do |t|
     t.integer "user_id", null: false
     t.datetime "begin_at"
     t.datetime "finish_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "post_id"
+    t.index ["post_id"], name: "index_attendances_on_post_id"
     t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 
@@ -26,8 +28,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_16_082904) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "read", default: false
+    t.integer "post_id"
+    t.index ["post_id"], name: "index_messages_on_post_id"
     t.index ["receiver_id"], name: "index_messages_on_receiver_id"
     t.index ["sender_id"], name: "index_messages_on_sender_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -40,7 +52,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_16_082904) do
     t.string "remember_digest"
   end
 
+  add_foreign_key "attendances", "posts"
   add_foreign_key "attendances", "users"
+  add_foreign_key "messages", "posts"
   add_foreign_key "messages", "users", column: "receiver_id"
   add_foreign_key "messages", "users", column: "sender_id"
+  add_foreign_key "posts", "users"
 end

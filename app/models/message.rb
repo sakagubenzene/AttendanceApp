@@ -1,6 +1,7 @@
 class Message < ApplicationRecord
   belongs_to :sender, class_name: 'User'
   belongs_to :receiver, class_name: 'User'
+  belongs_to :post
   default_scope -> { order(created_at: :desc) }
 
   validates :sender_id, presence: true

@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       reset_session
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       log_in user
-      redirect_to forwarding_url || new_attendance_path
+      redirect_to forwarding_url || new_post_path
     else
       flash.now[:alert] = '社員番号またはパスワードが無効です。'
       render 'new', status: :unprocessable_entity
@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
 
   def redirect_if_logged_in
     if logged_in?
-      redirect_to new_attendance_path
+      redirect_to new_post_path
     end
   end
 end
