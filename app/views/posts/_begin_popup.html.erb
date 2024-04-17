@@ -1,11 +1,28 @@
-<section class="form">
-  <%= form_with(model: @post) do |f| %>
-    <%= f.fields_for :attendance do |a| %>
-      <%= a.hidden_field :begin_at, value: Time.current %>
-    <% end %>
-    <%= f.submit "出勤登録", class: "btn btn-primary" %>
+<%= form_with(model: @post, local: true) do |f| %>
+  <%= f.fields_for :attendance do |a| %>
+    <div>
+      打刻する時刻: <span id="display_time"></span>
+      <%= a.hidden_field :begin_at, id: "attendance_begin_at" %>
+    </div>
   <% end %>
 
-  <h3>未読メッセージ:</h3>
 
-</section>
+  <%= f.fields_for :message do |m| %>
+    <%= m.hidden_field :read, value: true %> <!-- 追加 -->
+  <% end %>
+
+  <%= f.submit "出勤", class: "btn btn-primary" %>
+  <% if @unread_messages.any? %>
+    <h3>未読メッセージ:</h3>
+    <ul>
+      <% @unread_messages.each do |message| %>
+        <li>
+          <%= message.content %> - from <%= message.sender.name %>
+          <!-- ここで読んだことをマークするフォームを追加することもできます -->
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>未読メッセージはありません。</p>
+  <% end %>
+<% end %>

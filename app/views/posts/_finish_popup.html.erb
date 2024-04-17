@@ -1,12 +1,16 @@
 <section class="form">
   <%= form_with(model: @post, local: true) do |f| %>
     <div class="field">
-      <%= f.hidden_field :finish_at, value: Time.current.strftime("%Y-%m-%d %H:%M:%S") %>
+      <%= f.fields_for :attendance do |a| %>
+        <%= a.hidden_field :user_id, value: current_user.id %>
+        <%= a.hidden_field :finish_at, value: Time.current.strftime("%Y-%m-%d %H:%M:%S") %>
+      <% end %>
       <div id="current_time" class="current-time"></div>
     </div>
 
     <%= f.fields_for :message do |m| %>
       <div class="field">
+        <%= m.hidden_field :sender_id, value: current_user.id %>
         <%= m.collection_select :receiver_id, User.all, :id, :name, include_blank: '選択してください' %>
         <%= m.text_area :content %>
       </div>

@@ -39,3 +39,23 @@ document.addEventListener("DOMContentLoaded", function() {
     updateTime();
   }
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById("begin_button").addEventListener("click", function() {
+    const now = new Date();
+    const datetimeString = now.getFullYear() + '-' + 
+                           ('0' + (now.getMonth() + 1)).slice(-2) + '-' + 
+                           ('0' + now.getDate()).slice(-2) + ' ' + 
+                           ('0' + now.getHours()).slice(-2) + ':' + 
+                           ('0' + now.getMinutes()).slice(-2) + ':' + 
+                           ('0' + now.getSeconds()).slice(-2);
+
+    // 時刻をモーダルとhidden fieldに設定
+    document.getElementById("display_time").textContent = datetimeString;
+    document.getElementById("attendance_begin_at").value = datetimeString;
+
+    // モーダルを表示
+    document.getElementById("begin_modal").style.display = "block";
+    document.getElementById("modal_overlay").style.display = "block";
+  });
+});
