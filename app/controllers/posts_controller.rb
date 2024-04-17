@@ -4,11 +4,10 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = @user.posts.build(post_params)
+    @post = current_user.posts.build(post_params)
     if @post.save
-      flash[:success] = "Welcome to the Sample App!"
     else
-      flash[:danger] = "だめ！"
+      redirect_to new_user_path
     end
     redirect_to new_post_path
   end
