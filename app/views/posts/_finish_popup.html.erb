@@ -11,7 +11,7 @@
     <%= f.fields_for :message do |m| %>
       <div class="field">
         <%= m.hidden_field :sender_id, value: current_user.id %>
-        <%= m.collection_select :receiver_id, User.all, :id, :name, include_blank: '選択してください' %>
+        <%= m.collection_select :receiver_id, User.all, :id, :name, prompt: '選択してください' %>
         <%= m.text_area :content %>
       </div>
     <% end %>

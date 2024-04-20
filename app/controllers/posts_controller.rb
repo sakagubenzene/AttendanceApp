@@ -9,11 +9,16 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      redirect_to new_post_path, notice: 'Post was successfully created.'
+      flash[:success] = "打刻しました。"
+      redirect_to new_post_path
     else
-      flash.now[:error] = @post.errors.full_messages.to_sentence
+      flash.now[:error] = "メッセージを送る社員名を選んでください。"
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def update
+
   end
 
   private

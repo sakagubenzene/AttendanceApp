@@ -11,7 +11,7 @@ class Message < ApplicationRecord
 
   private
     def content_must_include_specific_word
-      unless content.include?("ありがとう")
+      unless content &.include?("ありがとう")
         errors.add(:content, "「ありがとう」という言葉を含めてください！")
       end
     end
