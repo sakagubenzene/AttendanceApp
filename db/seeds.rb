@@ -1,48 +1,65 @@
-# ユーザーデータの生成
-user1 = User.create!(
-  name: "John Doe",
+# User
+User.create!(
+  name: "test1",
   employee_number: "001",
   password: "password",
   admin: true
 )
 
-user2 = User.create!(
-  name: "Jane Smith",
-  employee_number: "002",
-  password: "password",
-  admin: false
-)
+(2..15) each do |n|
+  User.create!(
+    name: "test#{n}",
+    employee_number: n.to_s.rjust(3, '0'),
+    password: "password",
+  )
+end
 
-# Post データの生成と出退勤、メッセージデータの関連付け
-post1 = user1.posts.create!
-post2 = user2.posts.create!
+# Attendance
+15.times do |n|
+  Attendance.create!(
+    user_id: n + 1,
+    timestamp: Time.now.beginning_of_day + n.hours,
+    status: "begin"
+  )
 
-Attendance.create!(
-  post_id: post1.id,
-  user_id: user1.id,
-  begin_at: Time.now.beginning_of_day + 8.hours, # 今日の8時
-  finish_at: Time.now.beginning_of_day + 17.hours # 今日の17時
-)
+  Attendance.create!(
+    user_id: n + 1,
+    timestamp: Time.now.beginning_of_day + (n + 8).hours,
+    status: "finish"
+  )
+end
 
-Attendance.create!(
-  post_id: post2.id,
-  user_id: user2.id,
-  begin_at: Time.now.beginning_of_day + 9.hours, # 今日の9時
-  finish_at: Time.now.beginning_of_day + 18.hours # 今日の18時
-)
+5.times do |n|
+  Attendance.create!(
+    user_id: n + 1,
+    timestamp: Time.now.beginning_of_day + (n + 1).hours,
+    status: "begin_request",
+    reason: "打刻忘れ"
+  )
 
-Message.create!(
-  post_id: post1.id,
-  sender_id: user1.id,
-  receiver_id: user2.id,
-  content: "とってもありがとう",
-  read: false
-)
+  Attendance.create!(
+    user_id: n + 4,
+    timestamp: Time.now.beginning_of_day + (n + 8).hours,
+    status: "finish",
+    reason: "通信障害"
+  )
+end
 
-Message.create!(
-  post_id: post2.id,
-  sender_id: user2.id,
-  receiver_id: user1.id,
-  content: "いつもありがとう",
-  read: false
-)
+# Message
+15.times do |n|
+  Message.create!(
+    sender_id: n + 1,
+    receiver_id: (n + 1) % 4 + 1,
+    attendance_id: 
+    content: "とってもありがとう",
+  )
+end
+
+5.times do |n|
+  Message.create!(
+    sender_id: n + 1,
+    receiver_id: n + 6,
+    content: "いつもありがとう",
+  )
+end
+  

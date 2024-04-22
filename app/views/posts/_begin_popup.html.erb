@@ -1,20 +1,29 @@
-<%= form_with(model: @post, local: true) do |f| %>
-  <%= f.fields_for :attendance do |a| %>
-      打刻する時刻: <span id="display_time"></span>
-      <%= a.hidden_field :begin_at, id: "attendance_begin_at" %>
-  <% end %>
-
-  <%= f.fields_for :message do |m| %>
-    <%= m.hidden_field :read, value: true %>
-  <% end %>
-
-  <%= f.submit "出勤", class: "btn btn-primary" %>
-  <% if @undread_messages &.any? %>
-    <% @unread_messages.each do |message| %>
-      <p>未読メッセージ:</p>
-      <%= message.content %> - from <%= message.sender.name %>
+<section class="form">
+  <button class="close-modal">×</button>
+  <%= form_with(model: @post, local: true) do |f| %>
+    <%= f.fields_for :user do |u| %>
+      <%= u.hidden_field :is_attending, value: true %>
     <% end %>
-  <% else %>
-    <p>未読メッセージはありません。</p>
+
+    打刻する時刻: <span id="begin_time"></span>
+    <%= f.fields_for :attendance do |a| %>
+        <%= a.hidden_field :user_id, value: current_user.id %>
+        <%= a.hidden_field :begin_at, id: "attendance_begin_at" %>
+    <% end %>
+
+    <%= f.fields_for :message do |m| %>
+      <%= m.hidden_field :read, value: true %>
+    <% end %>
+
+    <%= f.submit "出勤", class: "btn btn-primary" %>
+    
+    <% if @undread_messages &.any? %>
+      <% @unread_messages.each do |message| %>
+        <p>未読メッセージ:</p>
+        <%= message.sender.name %>さん:<br><%= message.content %>
+      <% end %>
+    <% else %>
+      <p>未読メッセージはありません。</p>
+    <% end %>
   <% end %>
-<% end %>
+</section>

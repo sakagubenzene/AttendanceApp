@@ -62,6 +62,8 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  config.assets.debug = true
+
   pf_domain = ENV['GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN']
   config.action_dispatch.default_headers = {
     'X-Frame-Options' => "ALLOW-FROM #{pf_domain}"

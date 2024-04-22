@@ -1,15 +1,15 @@
 <body id="new_attendance">
-  <button id="begin_button">出勤</button>
-  <button id="finish_button">退勤</button>
+
+  <button id="begin_button" class="<%= 'disabled' if current_user.is_attending %>">出勤</button>
+  <button id="finish_button" class="<%= 'disabled' unless current_user.is_attending %>">退勤</button>
 
   <div id="modal_overlay" class="modal-overlay"></div>
 
   <div id="begin_modal" class="modal">
-    <button class="close-modal">×</button>
     <%= render 'begin_popup' %>
   </div>
+
   <div id="finish_modal" class="modal">
-    <button class="close-modal">×</button>
     <%= render 'finish_popup' %>
   </div>
 </body>

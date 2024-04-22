@@ -60,6 +60,11 @@ input {
   }
 }
 
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .modal {
   display: none; /* デフォルトでは非表示 */
   position: fixed; /* 画面に固定 */
@@ -71,6 +76,7 @@ input {
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   z-index: 1050; /* オーバーレイより上 */
+  overflow-y: auto;
 }
 
 .modal-overlay {
@@ -101,11 +107,4 @@ input {
 .close-modal {
   border-style: none;
   background-color: white;
-}
-
-.taikin {
-  width: 100%;
-  margin-top: auto;
-  text-align: center;
-  margin-bottom: 5%;
 }
