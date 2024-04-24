@@ -1,18 +1,15 @@
 <section class="form">
   <button class="close-modal">×</button>
-  <%= form_with(model: @post, local: true) do |f| %>
-    <%= f.fields_for :user do |u| %>
-      <%= u.hidden_field :is_attending, value: true %>
-    <% end %>
+  <%= form_with(model: @attendance, local: true) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.hidden_field :status, value: "finish" %>
 
       打刻する時刻: <span id="finish_time"></span>
-      <%= f.fields_for :attendance do |a| %>
-        <%= a.hidden_field :finish_at, value: Time.current.strftime("%Y-%m-%d %H:%M:%S") %>
-      <% end %>
+      <%= f.hidden_field :timestamp, value: Time.current.strftime("%Y-%m-%d %H:%M:%S") %>
 
     <%= f.fields_for :message do |m| %>
       <div class="field">
-        <%= m.hidden_field :sender_id, value: current_user.id %>
         <%= m.collection_select :receiver_id, User.all, :id, :name, prompt: '選択してください' %>
         <%= m.text_area :content %>
       </div>

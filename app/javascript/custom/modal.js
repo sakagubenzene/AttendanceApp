@@ -4,6 +4,13 @@ document.addEventListener("turbo:load", function() {
   }
 });
 
+document.addEventListener("turbo:render", function() {
+  if (document.body.id === "new_attendance") {
+    setupModalHandlers();
+
+  }
+});
+
 
 function setupModalHandlers() {
   const overlay = document.getElementById("modal_overlay");
@@ -32,6 +39,12 @@ function setupModalHandlers() {
 
     // finishなら時間は更新し続ける。記録するvalueはcontrollerまかせ。
     setInterval(setFinishTime, 1000);
+  });
+
+  document.getElementById("modification_button").addEventListener("click", function() {
+    // modification_button押したら発火
+    document.getElementById("modification_modal").style.display = "block";
+    overlay.style.display = "block";
   });
 
   document.querySelectorAll(".close-modal").forEach(button => {

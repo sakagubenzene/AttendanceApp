@@ -60,6 +60,20 @@ input {
   }
 }
 
+.btn-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.attendance_button {
+  height: 20rem;
+  width: 40rem;
+  font-size: 10rem;
+  font-family: "Gill Sans", sans-serif;
+  font-weight: bold;
+  border-radius: 3rem;
+}
+
 .disabled {
   opacity: 0.5;
   pointer-events: none;
@@ -77,6 +91,21 @@ input {
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   z-index: 1050; /* オーバーレイより上 */
   overflow-y: auto;
+  .form {
+    height: 100%;
+  }
+  form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .btn {
+    display: block;
+    margin: auto;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0;
+  }
 }
 
 .modal-overlay {
@@ -94,14 +123,14 @@ input {
   font-size: 200%;
 }
 
-#_message_receiver_id {
+#attendance_message_attributes_receiver_id {
   display: block;
 }
 
-#_message_content {
-  display: block;
+#attendance_message_attributes_content {
   width: 100%;
   margin-left: 0;
+  resize: none;
 }
 
 .close-modal {

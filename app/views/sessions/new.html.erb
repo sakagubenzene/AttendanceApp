@@ -1,19 +1,19 @@
 <div class="login_form">
-  <%= form_with(scope: :session, url: login_path, local: true) do |form| %>
+  <%= form_with(scope: :session, url: login_path, local: true) do |f| %>
 
-    <%= form.label :employee_number, "社員番号" %>
-    <%= form.text_field :employee_number, required: true %>
+    <%= f.label :employee_number, "社員番号" %>
+    <%= f.text_field :employee_number, required: true %>
 
-    <%= form.label :password, "パスワード" %>
-    <%= form.password_field :password, required: true %>
+    <%= f.label :password, "パスワード" %>
+    <%= f.password_field :password, required: true %>
 
-    <%= form.label :remember_me, class: "checkbox" do %>
-      <%= form.check_box :remember_me, checked: true %>
+    <%= f.label :remember_me, class: "checkbox" do %>
+      <%= f.check_box :remember_me, checked: true %>
       <p>ログインしたままにする</p>
     <% end %>
 
     <div class="login_button">
-      <%= form.submit "ログイン" %>
+      <%= f.submit "ログイン" %>
     </div>  
   <% end %>
 </div>

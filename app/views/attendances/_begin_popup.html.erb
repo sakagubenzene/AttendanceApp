@@ -1,0 +1,22 @@
+<section class="form">
+  <button class="close-modal">×</button>
+  <%= form_with(model: @attendance, local: true) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+
+    <%= f.hidden_field :status, value: "begin" %>
+
+    打刻する時刻: <span id="begin_time"></span>
+    <%= f.hidden_field :timestamp, id: "attendance_begin_at" %>
+
+    <%= f.submit "出勤", class: "btn btn-primary" %>
+    
+    <% if @unread_messages &.any? %>
+      <p>未読メッセージ:</p>
+      <% @unread_messages.each do |message| %>
+        <%= message.user.name %>さん: <%= message.content %><br>
+      <% end %>
+    <% else %>
+      <p>未読メッセージはありません。</p>
+    <% end %>
+  <% end %>
+</section>

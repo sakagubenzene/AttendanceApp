@@ -38,7 +38,7 @@ end
   Attendance.create!(
     user_id: n + 1,
     timestamp: Time.now.beginning_of_day + (n + 1).hours,
-    status: "begin_request",
+    status: "modification_request",
   )
 end
 
@@ -48,7 +48,7 @@ end
   Attendance.create!(
     user_id: n + 4,
     timestamp: Time.now.beginning_of_day + (n + 8).hours,
-    status: "finish_request",
+    status: "modification_request",
   )
 end
 
