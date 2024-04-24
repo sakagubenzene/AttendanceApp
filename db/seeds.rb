@@ -6,7 +6,7 @@ User.create!(
   admin: true
 )
 
-(2..15) each do |n|
+(2..15).each do |n|
   User.create!(
     name: "test#{n}",
     employee_number: n.to_s.rjust(3, '0'),
@@ -16,12 +16,16 @@ end
 
 # Attendance
 15.times do |n|
+  # 1~15
   Attendance.create!(
     user_id: n + 1,
     timestamp: Time.now.beginning_of_day + n.hours,
     status: "begin"
   )
+end
 
+15.times do |n|
+  # 16~30
   Attendance.create!(
     user_id: n + 1,
     timestamp: Time.now.beginning_of_day + (n + 8).hours,
@@ -30,36 +34,55 @@ end
 end
 
 5.times do |n|
+  # 31~35
   Attendance.create!(
     user_id: n + 1,
     timestamp: Time.now.beginning_of_day + (n + 1).hours,
     status: "begin_request",
-    reason: "打刻忘れ"
   )
+end
 
+
+5.times do |n|
+  # 36~40
   Attendance.create!(
     user_id: n + 4,
     timestamp: Time.now.beginning_of_day + (n + 8).hours,
-    status: "finish",
-    reason: "通信障害"
+    status: "finish_request",
   )
 end
 
 # Message
-15.times do |n|
+(16..20).each do |n|
   Message.create!(
-    sender_id: n + 1,
+    attendance_id: n,
     receiver_id: (n + 1) % 4 + 1,
-    attendance_id: 
     content: "とってもありがとう",
   )
 end
 
-5.times do |n|
+(21..30).each do |n|
   Message.create!(
-    sender_id: n + 1,
-    receiver_id: n + 6,
+    attendance_id: n,
+    receiver_id: (n + 6) % 10 + 1,
     content: "いつもありがとう",
   )
 end
-  
+
+(31..35).each do |n|
+  Message.create!(
+    attendance_id: n,
+    attendance_to_change_id: n - 30,
+    receiver_id: 1,
+    content: "打刻忘れ"
+  )
+end
+
+(36..40).each do |n|
+  Message.create!(
+    attendance_id: n,
+    attendance_to_change_id: n - 32,
+    receiver_id: 1,
+    content: "通信障害"
+  )
+end

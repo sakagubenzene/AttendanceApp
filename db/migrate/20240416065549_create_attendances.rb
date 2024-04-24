@@ -4,7 +4,6 @@ class CreateAttendances < ActiveRecord::Migration[7.0]
       t.references :user, null: false, foreign_key: true
       t.datetime :timestamp, null: false
       t.string :status, null: false
-      t.text :reason
       t.timestamps
     end
   end
