@@ -8,6 +8,9 @@
     修正する記録:
     <%= f.collection_select :attendance_id, current_user.attendances.where.not(status: "settled"), :id, :display_selection, prompt: '選択してください' %>
 
+    修正後の時刻:
+    <%= f.datetime_field :timestamp, id: "attendance_timestamp" %>
+
     <%= f.fields_for :message do |m| %>
       <div class="field">
         修正依頼先: 

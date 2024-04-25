@@ -17,9 +17,11 @@ class Message < ApplicationRecord
       end
     end
       
-    def content_must_include_specific_word
-      unless content &.include?("ありがとう")
-        errors.add(:content, "「ありがとう」という言葉を含めてください！")
+    def content_must_express_gratitude
+      if status == "finish"
+        unless content &.include?("ありがとう")
+          errors.add(:content, "「ありがとう」という言葉を含めてください！")
+        end
       end
     end
 end

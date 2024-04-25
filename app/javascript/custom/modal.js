@@ -47,6 +47,20 @@ function setupModalHandlers() {
     overlay.style.display = "block";
   });
 
+  const attendanceSelect = document.getElementById("attendance_attendance_id");
+  const timestampField = document.getElementById("attendance_timestamp");
+
+  attendanceSelect.addEventListener('change', function() {
+    const attendanceId = this.value;
+    fetch(`/attendances/get_timestamp/${attendanceId}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.get_timestamp) {
+          timestampField.value = data.timestamp;
+        }
+      });
+  });
+
   document.querySelectorAll(".close-modal").forEach(button => {
     button.addEventListener("click", function() {
       //ばつボタンでモーダルとオーバーレイ消す。

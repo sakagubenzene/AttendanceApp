@@ -22,10 +22,15 @@ class AttendancesController < ApplicationController
   def update
   end
 
+  def previous_timestamp
+    attendance = Attendance.find(params[:id]).timestamp
+  end
+  
   private
 
     def post_params
       params.require(:attendance).permit(:timestamp, :status, message_attributes: [:receiver_id, :content])
     end
+
 
 end

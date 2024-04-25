@@ -8,7 +8,6 @@
     打刻する時刻: <span id="begin_time"></span>
     <%= f.hidden_field :timestamp, id: "attendance_begin_at" %>
 
-    <%= f.submit "出勤", class: "btn btn-primary" %>
     
     <% if @unread_messages &.any? %>
       <p>未読メッセージ:</p>
@@ -18,5 +17,6 @@
     <% else %>
       <p>未読メッセージはありません。</p>
     <% end %>
+    <%= f.submit "出勤", class: "btn btn-primary" %>
   <% end %>
 </section>

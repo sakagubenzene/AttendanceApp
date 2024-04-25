@@ -60,18 +60,35 @@ input {
   }
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .btn-wrapper {
   display: flex;
   justify-content: space-evenly;
+  margin-top: 2em;
 }
 
 .attendance_button {
-  height: 20rem;
-  width: 40rem;
-  font-size: 10rem;
+  height: 2em;
+  width: 3em;
+  font-size: 9rem;
   font-family: "Gill Sans", sans-serif;
   font-weight: bold;
-  border-radius: 3rem;
+  border-radius: 3em;
+}
+
+#modification_button {
+  margin: 1em auto;
+  display: flex;
+  width: 6em;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .disabled {

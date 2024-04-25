@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   
   resources :users
-  resources :attendances
+  resources :attendances do
+    get :previous_timestamp
+  end
   resources :messages, only: :show
 end
