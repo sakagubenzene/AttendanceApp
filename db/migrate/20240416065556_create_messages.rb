@@ -5,6 +5,7 @@ class CreateMessages < ActiveRecord::Migration[7.0]
       t.references :attendance_to_change, foreign_key: { to_table: :attendances }
       t.references :receiver, null: false, foreign_key: { to_table: :users }
       t.text :content, null: false
+      t.timestamps
     end
   end
 end

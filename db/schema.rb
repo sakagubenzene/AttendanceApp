@@ -25,6 +25,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_16_065556) do
     t.integer "attendance_to_change_id"
     t.integer "receiver_id", null: false
     t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["attendance_id"], name: "index_messages_on_attendance_id"
     t.index ["attendance_to_change_id"], name: "index_messages_on_attendance_to_change_id"
     t.index ["receiver_id"], name: "index_messages_on_receiver_id"
