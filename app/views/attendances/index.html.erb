@@ -1,10 +1,22 @@
-<h1>出退勤記録</h1>
-<table>
+<% provide(:title, '修正依頼状況') %>
+<%= link_to new_user_path, class: "new_link" do %>
+  <%= image_tag "signin.svg" %>
+  新規登録
+<% end %>
+<%= link_to "社員一覧", users_path, class: "button right" %>
+
+<table id="attendances">
+  <tr>
+    <th><%= sort_link(@search, :user, "社員番号") %></th>
+    <th><%= sort_link(@search, :name, "社員名") %></th>
+    <th>修正依頼</th>
+    <th>修正依頼理由</th>
+  </tr>
   <% @attendances.each do |attendance| %>
     <tr>
-      <td><%= attendance.user.name %></td>
-      <td><%= attendance.begin_at %></td>
-      <td><%= attendance.finish_at %></td>
+    <%= render attendance %>
     </tr>
   <% end %>
+
 </table>
+<%= paginate @attendances %> 

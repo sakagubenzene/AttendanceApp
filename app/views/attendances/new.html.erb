@@ -3,7 +3,10 @@
     <button id="begin_button" class="attendance_button <%= 'disabled' if previous_status(current_user) == "begin" %>">出勤</button>
     <button id="finish_button" class="attendance_button <%= 'disabled' if previous_status(current_user) == "finish" %>">退勤</button>
   </div>
-    <button id="modification_button" class="attendance_button">修正依頼</button>
+  <button id="modification_button" class="attendance_button">修正依頼</button>
+  <% if current_user.admin? %>
+    <%= link_to "管理者用ページ",users_path %>
+  <% end %>
 
   <div id="modal_overlay" class="modal-overlay"></div>
 

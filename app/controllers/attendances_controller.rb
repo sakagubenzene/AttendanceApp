@@ -1,11 +1,18 @@
 class AttendancesController < ApplicationController
   include AttendancesHelper
-
+  before_action :logged_in_user
+  
   def new
     @attendance = Attendance.new()
     @attendance.build_message
     @unread_messages = Message.where(receiver_id: current_user.id)
                               .where(attendance_id: previous_attendance(current_user).id..)
+  end
+
+  def index
+    @search = Attendance.joins.ransack(params[:q])
+    @search.sorts = 'id desc' if @search.sorts.empty?
+    @attendances = @search.result.page(params[:page])
   end
 
   def create
@@ -20,6 +27,31 @@ class AttendancesController < ApplicationController
   end
 
   def update
+    @attendance = Attendance.find(params[:id])
+    ActiveRecord::Base.transaction do
+      # 変更対象のAttendance情報を取得
+      attendance_to_change = @attendance.message.attendance_to_change
+      
+      # 変更対象のAttendanceのtimestampを現在のAttendanceのtimestampに更新
+      attendance_to_change.update!(timestamp: @attendance.timestamp)
+      
+      # 修正依頼statusを"settled"に更新
+      @attendance.update!(status: "settled")
+    end
+
+    redirect_to attendances_path, notice: "正常に修正しました。"
+    rescue ActiveRecord::RecordInvalid => e
+      flash[:error]
+      redirect_to attendances_path
+  end
+
+  def destroy
+    @attendance = Attendance.find(params[:id])
+    @attendance.update!(status: "unsettled")
+    redirect_to attendances_path, notice: "正常に不許可登録が完了しました。"
+    rescue ActiveRecord::RecordInvalid => e
+      flash[:error]
+      redirect_to attendances_path
   end
 
   def previous_timestamp
@@ -29,8 +61,21 @@ class AttendancesController < ApplicationController
   private
 
     def post_params
-      params.require(:attendance).permit(:timestamp, :status, message_attributes: [:receiver_id, :content])
+      params.require(:attendance).permit(:timestamp, :status, message_attributes: [:receiver_id, :content, :attendance_to_change_id])
     end
 
+    #before_action
+    def logged_in_user
+      unless logged_in?
+        store_location
+        flash[:danger] = "ログインしてください。"
+        redirect_to login_url, status: :see_other
+      end
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_url, status: :see_other) unless current_user?(@user)
+    end
 
 end

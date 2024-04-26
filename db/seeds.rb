@@ -37,7 +37,7 @@ end
   # 31~35
   Attendance.create!(
     user_id: n + 1,
-    timestamp: Time.now.beginning_of_day + (n + 1).hours,
+    timestamp: Time.now.beginning_of_day - (n + 1).hours,
     status: "modification_request",
   )
 end
@@ -47,7 +47,7 @@ end
   # 36~40
   Attendance.create!(
     user_id: n + 4,
-    timestamp: Time.now.beginning_of_day + (n + 8).hours,
+    timestamp: Time.now.beginning_of_day - (n + 8).hours,
     status: "modification_request",
   )
 end
@@ -81,7 +81,7 @@ end
 (36..40).each do |n|
   Message.create!(
     attendance_id: n,
-    attendance_to_change_id: n - 32,
+    attendance_to_change_id: n - 17,
     receiver_id: 1,
     content: "通信障害"
   )

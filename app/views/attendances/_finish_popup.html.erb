@@ -1,6 +1,6 @@
 <section class="form">
   <button class="close-modal">×</button>
-  <%= form_with(model: @attendance, local: true) do |f| %>
+  <%= bootstrap_form_with(model: @attendance, local: true) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
 
       <%= f.hidden_field :status, value: "finish" %>
@@ -10,8 +10,8 @@
 
     <%= f.fields_for :message do |m| %>
       <div class="field">
-        <%= m.collection_select :receiver_id, User.all, :id, :name, prompt: '選択してください' %>
-        <%= m.text_area :content %>
+        <%= m.collection_select :receiver_id, User.all, :id, :name, prompt: '選択してください', label: "メッセージ送り先" %>
+        <%= m.text_area :content, label: "メッセージ内容" %>
       </div>
     <% end %>
 

@@ -4,6 +4,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.2.3"
 
 gem "rails",           "7.0.4.3"
+gem "bootstrap_form"
+gem "ransack"
+gem "kaminari"
 gem 'requestjs-rails'
 gem "bcrypt",          "3.1.18"
 gem "faker",           "2.21.0"

@@ -1,20 +1,9 @@
 <div class="login_form">
-  <%= form_with(scope: :session, url: login_path, local: true) do |f| %>
-
-    <%= f.label :employee_number, "社員番号" %>
-    <%= f.text_field :employee_number, required: true %>
-
-    <%= f.label :password, "パスワード" %>
-    <%= f.password_field :password, required: true %>
-
-    <%= f.label :remember_me, class: "checkbox" do %>
-      <%= f.check_box :remember_me, checked: true %>
-      <p>ログインしたままにする</p>
-    <% end %>
-
-    <div class="login_button">
-      <%= f.submit "ログイン" %>
-    </div>  
+  <%= bootstrap_form_with(scope: :session, url: login_path, local: true) do |f| %>
+    <%= f.text_field :employee_number, required: true, label: "社員番号" %>
+    <%= f.password_field :password, required: true, label: "パスワード" %>
+    <%= f.check_box :remember_me, checked: true, label: "ログインしたままにする" %>
+    <%= f.submit "ログイン", class: "login_button" %>
   <% end %>
 </div>
 

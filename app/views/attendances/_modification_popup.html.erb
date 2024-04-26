@@ -1,21 +1,20 @@
 <section class="form">
   <button class="close-modal">×</button>
-  <%= form_with(model: @attendance, local: true) do |f| %>
+  <%= bootstrap_form_with(model: @attendance, local: true) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
 
     <%= f.hidden_field :status, value: "modification_request" %>
+    
+    <%= f.fields_for :message do |m| %>
+      <%= m.collection_select :attendance_to_change_id, current_user.attendances.where.not(status: "settled"), :id, :display_selection, prompt: '選択してください', label: "修正する記録:" %>
+    <% end %>
 
-    修正する記録:
-    <%= f.collection_select :attendance_id, current_user.attendances.where.not(status: "settled"), :id, :display_selection, prompt: '選択してください' %>
-
-    修正後の時刻:
-    <%= f.datetime_field :timestamp, id: "attendance_timestamp" %>
+    <%= f.datetime_field :timestamp, id: "attendance_timestamp", label: "修正後の時刻:" %>
 
     <%= f.fields_for :message do |m| %>
-      <div class="field">
-        修正依頼先: 
-        <%= m.collection_select :receiver_id, User.all.where(admin: true), :id, :name, prompt: '選択してください' %>
-        <%= m.text_area :content %>
+      <div class="field"> 
+        <%= m.collection_select :receiver_id, User.all.where(admin: true), :id, :name, prompt: '選択してください', label: "修正依頼先:" %>
+        <%= m.text_area :content, label: "修正理由" %>
       </div>
     <% end %>
 

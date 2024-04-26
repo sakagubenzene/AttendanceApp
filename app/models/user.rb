@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :attendances, dependent: :destroy
-  has_many :messages, dependent: :destroy, through: :attendances
+  has_many :messages, through: :attendances
   has_many :received_messages, class_name: 'Message', foreign_key: 'receiver_id', dependent: :destroy
   has_secure_password
 
@@ -20,6 +20,14 @@ class User < ApplicationRecord
     # ランダムなトークンを返す
     def new_token
       SecureRandom.urlsafe_base64
+    end
+
+    def ransackable_attributes(auth_object = nil)
+      ["admin", "created_at", "employee_number", "id", "name", "password_digest", "remember_digest", "updated_at", "timestamp"]
+    end
+
+    def ransackable_associations(auth_object = nil)
+      ["attendances", "messages", "received_messages"]
     end
   end
 

@@ -1,7 +1,29 @@
-<li>
-  <%= link_to user.name, user %>
-  <% if current_user.admin? && !current_user?(user) %>
-    | <%= link_to "delete", user, data: { "turbo-method": :delete,
-                                          turbo_confirm: "You sure?" } %>
+<th><%= user.employee_number %></th>
+<th><%= user.name %></th>
+<th>
+  <% if user.timestamp %>
+    <%= user.timestamp %><%= user.status %>
   <% end %>
-</li>
+</th>
+<% if user.attendances.where(status: "modification_request").first %>
+  <th>
+    <%= user.attendances.where(status: "modification_request").first&.message&.attendance_to_change&.timestamp&.strftime("%m月%d日 %H:%M") %>
+    (<%= user.attendances.where(status: "modification_request").first&.message&.attendance_to_change&.status_to_japanese %>)
+    →<%= user.attendances.where(status: "modification_request").first&.timestamp&.strftime("%m月%d日 %H:%M") %>
+  </th>
+  <th>
+    <%= user.attendances.where(status: "modification_request").first&.message&.content %>
+  </th>
+<% else %>
+  <th></th>
+  <th></th>
+<% end %>
+<th><%= link_to "詳細", user_path(user), class: "button" %></th>
+<th><%= link_to "社員情報変更", edit_user_path(user), class: "button" %></th>
+<th>
+  <% if current_user.admin? && !current_user?(user) %>
+    <%= link_to "社員情報削除", user, class: "button", data: { turbo_method: :delete,
+                                          turbo_confirm: "本当に削除しますか" } %>
+  <% end %>
+</th>
+

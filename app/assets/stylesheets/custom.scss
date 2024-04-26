@@ -1,13 +1,51 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.new_link, .logout {
+  text-decoration: none;
+  display: flex;
+  right: 0;
+  position: absolute;
+  font-family: monospace;
+  color: #333333;
+  width: fit-content;
+  img {
+    width: 2rem;
+  }
+  &:hover {
+    text-decoration: none;
+    color:#333333
+  }
+}
 
-.login_form {
+.new_link {
+  left: 0;
+}
+
+.user_search, .attendance_search, .signin_form, .login_form {
   width: 80%;
   border: 1px solid black;
   background-color: rgba(24, 24, 220, 0.696);
   margin: auto;
   margin-top: 4em;
+  font-size: 1rem;
+  padding: 2rem;
+}
+
+.user_search, .attendance_search {
+  background-color: white;
+  display: flex;
+  * {
+    margin-bottom: 0;
+    height: 2em;
+  }
+  .search_button {
+    width: 6em;
+    text-align: center;
+  }
+  .search {
+    background-color: rgba(68, 118, 188, 0.494);
+  }
 }
 
 label {
@@ -26,30 +64,22 @@ input {
   height: auto !important;
 }
 
-
-.checkbox {
-  margin-top: 10px;
-  margin-bottom: 10px;
+.form-check {
   display: flex;
-  p {
-    margin-left: 20px;
-    vertical-align: middle;
-    height: 100%;
-  }
-  #session_remember_me {
-    width: auto;
-    margin-left: 0;
-    vertical-align: middle;
-    height: 100%;
-  }
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.form-check-input{
+  width: 1rem;
 }
 
 
-.login_button {
+.signin_button, .login_button {
   display: block;
   width: 30%;
   margin: 0 auto;
-  margin-bottom: 2em;
+  font-size: 2rem;
 }
 
 #error_explanation {
@@ -123,6 +153,10 @@ input {
     align-items: center;
     margin-bottom: 0;
   }
+  label {
+    font-size: 1em;
+    font-weight: initial;
+  }
 }
 
 .modal-overlay {
@@ -153,4 +187,46 @@ input {
 .close-modal {
   border-style: none;
   background-color: white;
+}
+
+button {
+  a {
+    color: #333333;
+  }
+}
+
+table {
+  border: solid 1px;
+  th {
+    border: solid 1px;
+    color: #333333;
+  }
+}
+
+.button {
+  display: inline-block;
+  border-style: solid;
+  color: black;
+  background-color: rgb(225, 224, 224);
+  border-width:1px;
+  border-color: darkgray;
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+    color:#333333;
+  }
+}
+
+.right {
+  left: 0;
+  top: 1.5em;
+  position: absolute;
+}
+
+.low {
+  top: 3.0em;
+}
+
+.search_though_date {
+  display: flex;
 }

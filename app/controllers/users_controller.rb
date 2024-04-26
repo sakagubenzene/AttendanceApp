@@ -1,14 +1,14 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
-  before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: :destroy
+  before_action :admin_user
 
   def new
     @user = User.new
   end
 
   def index
-    @users = User.paginate(page: params[:page])
+    @search = User.joins(:attendances).select("users.*, attendances.*").ransack(params[:q])
+    @search.sorts = 'id desc' if @search.sorts.empty?
+    @users = @search.result.page(params[:page])
   end
 
   def create
@@ -42,9 +42,13 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "User deleted"
-    redirect_to users_url, status: :see_other
+    @user = User.find(params[:id])
+    if @user.destroy
+      flash[:success] = "正常に削除しました"
+      redirect_to users_path
+    else
+      redirect_to users_path, :unprocessable_entity
+    end
   end
 
   private
@@ -54,12 +58,7 @@ class UsersController < ApplicationController
     end
 
     #before_action
-    def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_url, status: :see_other) unless current_user?(@user)
-    end
-
     def admin_user
-      redirect_to(root_url, status: :see_other) unless current_user.admin?
+      redirect_to(root_url, status: :see_other) unless current_user&.admin?
     end
 end

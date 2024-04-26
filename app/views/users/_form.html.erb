@@ -1,27 +1,9 @@
-<%= form_with(model: @user, local: true) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
-
-  <div>
-    <%= f.label :name, "氏名" %>
-    <%= f.text_field :name, class: 'form-control' %>
-  </div>
-
-  <div>
-    <%= f.label :employee_number, "社員番号" %>
-    <%= f.text_field :employee_number, class: 'form-control' %>
-  </div>
-
-  <div>
-    <%= f.label :password, "パスワード" %>
-    <%= f.password_field :password, class: 'form-control' %>
-  </div>
-
-  <div>
-    <%= f.label :password_confirmation, "パスワード確認" %>
-    <%= f.password_field :password_confirmation, class: 'form-control' %>
-  </div>
-
-  <div>
-    <%= f.submit yield(:button_text), class: "btn btn-primary" %>
-  </div>
-<% end %>
+<div class="signin_form">
+  <%= bootstrap_form_with(model: @user, local: true) do |f| %>
+    <%= f.text_field :name, label: "氏名" %>
+    <%= f.text_field :employee_number, label: "社員番号" %>
+    <%= f.password_field :password, label: "パスワード" %>
+    <%= f.password_field :password_confirmation, label: "パスワード確認" %>
+    <%= f.submit yield(:button_text), class: "signin_button" %>
+  <% end %>
+</div>
