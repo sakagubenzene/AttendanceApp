@@ -10,7 +10,7 @@ class AttendancesController < ApplicationController
   end
 
   def index
-    @search = Attendance.joins.ransack(params[:q])
+    @search = Attendance.where(status:"modification_request").ransack(params[:q])
     @search.sorts = 'id desc' if @search.sorts.empty?
     @attendances = @search.result.page(params[:page])
   end
