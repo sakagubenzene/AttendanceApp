@@ -6,6 +6,12 @@
 <%= link_to "修正依頼状況", attendances_path, class: "button right" %>
 <%= link_to "出勤登録", new_attendance_path, class: "button right low" %>
 
+<%= search_form_for @search do |f| %>
+  <%= f.search_field :name_cont %>
+  <%= f.submit %>q2
+  <%= link_to "クリア", users_path, class: "button" %>
+<% end %>
+
 <table id="users">
   <tr>
     <th>社員番号</th>
@@ -14,6 +20,7 @@
     <th>修正依頼(直近)</th>
     <th>修正依頼理由</th>
   </tr>
+
   <% @users.each do |user| %>
     <tr>
       <%= render user %>

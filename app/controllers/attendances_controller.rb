@@ -54,6 +54,7 @@ class AttendancesController < ApplicationController
   end
 
   def show
+    attendance = Attendance.find(params[:id])
   end
 
   def previous_timestamp

@@ -6,7 +6,9 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.includes(:attendances).page(params[:page])
+    @search = User.includes(:attendances).ransack(params[:q])
+    @search.sorts = 'id desc' if @search.sorts.empty?
+    @users = Kaminari.paginate_array(@search.result).page(params[:page])
   end
 
   def create
