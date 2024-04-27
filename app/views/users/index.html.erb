@@ -3,13 +3,14 @@
   <%= image_tag "signin.svg" %>
   新規登録
 <% end %>
-<%= link_to "修正依頼状況",attendances_path, class: "button right" %>
+<%= link_to "修正依頼状況", attendances_path, class: "button right" %>
+<%= link_to "出勤登録", new_attendance_path, class: "button right low" %>
 
 <table id="users">
   <tr>
     <th>社員番号</th>
     <th>社員名</th>
-    <th>時間(出退など)</th>
+    <th>出勤時間~退勤時間(直近)</th>
     <th>修正依頼(直近)</th>
     <th>修正依頼理由</th>
   </tr>
@@ -20,3 +21,5 @@
   <% end %>
 
 </table>
+
+<%= paginate @users %>

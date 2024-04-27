@@ -6,16 +6,14 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all.includes(:attendances)
+    @users = User.includes(:attendances).page(params[:page])
   end
 
   def create
     @user = User.new(user_params)
     if @user.save
-      reset_session
-      log_in @user
       flash[:success] = "正常に追加されました。"
-      redirect_to @user
+      redirect_to users_path
     else
       render 'new', status: :unprocessable_entity
     end
@@ -33,7 +31,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:success] = "正常に更新されました。"
-      redirect_to @user
+      redirect_to users_path
     else
       render 'edit', status: :unprocessable_entity
     end

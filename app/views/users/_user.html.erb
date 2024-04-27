@@ -1,9 +1,13 @@
 <th><%= user.employee_number %></th>
 <th><%= user.name %></th>
 <th>
-  <%= user.attendances&.where(status: "begin").last.timestamp.strftime("%m月%d日 %H:%M") %>
+  <% if user.attendances.where(status: "begin")&.last %>
+    <%= user.attendances.where(status: "begin").last.timestamp.strftime("%m月%d日 %H:%M") %>
+  <% end %>
   ~
-  <%= user.attendances&.where(status: "finish").last.timestamp.strftime("%m月%d日 %H:%M") %>
+  <% if user.attendances.where(status: "finish")&.last %>
+    <%= user.attendances.where(status: "finish").last.timestamp.strftime("%m月%d日 %H:%M") %>
+  <% end %>
 </th>
 
 <% if user.attendances&.where(status: "modification_request")&.first %>

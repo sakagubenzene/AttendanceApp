@@ -7,7 +7,7 @@ class AttendancesController < ApplicationController
     @attendance = Attendance.new()
     @attendance.build_message
     @unread_messages = Message.where(receiver_id: current_user.id)
-                              .where(attendance_id: previous_attendance(current_user).id..)
+                              .where(attendance_id: previous_attendance(current_user)&.id..)
   end
 
   def index

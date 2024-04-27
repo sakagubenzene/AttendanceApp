@@ -10,7 +10,6 @@ class Attendance < ApplicationRecord
                       presence: true
   validate :valid_status_transition, if: -> { status == "begin" || status == "finish" }
   validate :time_check, if: -> { status == "modification_request" }
-
   
   def status_to_japanese
     case status
@@ -49,7 +48,7 @@ class Attendance < ApplicationRecord
                                     .where.not(status: ['modification_request', 'settled', 'unsettled'])
                                     .order(timestamp: :desc)
                                     .first
-    
+
       if last_significant_record.present?
         if status == 'begin' && last_significant_record.status != 'finish'
           errors.add(:base, '出勤を連続で記録することはできません。')
