@@ -11,9 +11,7 @@ class AttendancesController < ApplicationController
   end
 
   def index
-    @search = Attendance.where(status:"modification_request").ransack(params[:q])
-    @search.sorts = 'id desc' if @search.sorts.empty?
-    @attendances = @search.result.page(params[:page])
+    @attendances = Attendance.where(status:"modification_request").all.includes(user: :messages)
   end
 
   def create

@@ -2,6 +2,7 @@
 <th><%= user.name %></th>
 <th>
   <%= user.attendances&.where(status: "begin").last.timestamp.strftime("%m月%d日 %H:%M") %>
+  ~
   <%= user.attendances&.where(status: "finish").last.timestamp.strftime("%m月%d日 %H:%M") %>
 </th>
 

@@ -7,8 +7,8 @@
 
 <table id="attendances">
   <tr>
-    <th><%= sort_link(@search, :user, "社員番号") %></th>
-    <th><%= sort_link(@search, :name, "社員名") %></th>
+    <th>社員番号</th>
+    <th>社員名</th>
     <th>修正依頼</th>
     <th>修正依頼理由</th>
   </tr>
@@ -17,6 +17,4 @@
     <%= render attendance %>
     </tr>
   <% end %>
-
 </table>
-<%= paginate @attendances %> 
