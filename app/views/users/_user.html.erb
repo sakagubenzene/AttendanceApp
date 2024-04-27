@@ -1,11 +1,11 @@
 <th><%= user.employee_number %></th>
 <th><%= user.name %></th>
 <th>
-  <% if user.timestamp %>
-    <%= user.timestamp %><%= user.status %>
-  <% end %>
+  <%= user.attendances&.where(status: "begin").last.timestamp.strftime("%m月%d日 %H:%M") %>
+  <%= user.attendances&.where(status: "finish").last.timestamp.strftime("%m月%d日 %H:%M") %>
 </th>
-<% if user.attendances.where(status: "modification_request").first %>
+
+<% if user.attendances&.where(status: "modification_request")&.first %>
   <th>
     <%= user.attendances.where(status: "modification_request").first&.message&.attendance_to_change&.timestamp&.strftime("%m月%d日 %H:%M") %>
     (<%= user.attendances.where(status: "modification_request").first&.message&.attendance_to_change&.status_to_japanese %>)

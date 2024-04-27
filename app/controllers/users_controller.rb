@@ -6,9 +6,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @search = User.joins(:attendances).select("users.*, attendances.*").ransack(params[:q])
-    @search.sorts = 'id desc' if @search.sorts.empty?
-    @users = @search.result.page(params[:page])
+    @users = User.all.includes(:attendances)
   end
 
   def create
