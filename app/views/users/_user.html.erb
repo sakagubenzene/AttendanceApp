@@ -23,12 +23,11 @@
   <th></th>
   <th></th>
 <% end %>
+
 <th><%= link_to "詳細", user_path(user), class: "button" %></th>
 <th><%= link_to "社員情報変更", edit_user_path(user), class: "button" %></th>
 <th>
-  <% if current_user.admin? && !current_user?(user) %>
     <%= link_to "社員情報削除", user, class: "button", data: { turbo_method: :delete,
                                           turbo_confirm: "本当に削除しますか" } %>
-  <% end %>
 </th>
 
