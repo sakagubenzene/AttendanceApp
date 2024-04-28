@@ -36,11 +36,14 @@ class AttendancesController < ApplicationController
       
       # 修正依頼statusを"settled"に更新
       @attendance.update!(status: "settled")
+      
+      # 修正依頼のattendance_to_change_idをnilに更新
+      @attendance.message.update!(attendance_to_change_id: nil)
     end
 
     redirect_to attendances_path, notice: "正常に修正しました。"
     rescue ActiveRecord::RecordInvalid => e
-      flash[:error]
+      flash[:error] = e.message
       redirect_to attendances_path
   end
 

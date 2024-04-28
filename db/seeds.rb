@@ -8,6 +8,7 @@ User.create!(
 
 (2..15).each do |n|
   User.create!(
+    # 2~15
     name: "test#{n}",
     employee_number: n.to_s.rjust(3, '0'),
     password: "password",
@@ -16,7 +17,7 @@ end
 
 # Attendance
 15.times do |n|
-  # 1~15
+  # 1~15, user_id:1~15
   Attendance.create!(
     user_id: n + 1,
     timestamp: Time.now.beginning_of_day + n.hours,
@@ -25,7 +26,7 @@ end
 end
 
 15.times do |n|
-  # 16~30
+  # 16~30, user_id:1~15
   Attendance.create!(
     user_id: n + 1,
     timestamp: Time.now.beginning_of_day + (n + 8).hours,
@@ -34,7 +35,7 @@ end
 end
 
 5.times do |n|
-  # 31~35
+  # 31~35, user_id:1~5
   Attendance.create!(
     user_id: n + 1,
     timestamp: Time.now.beginning_of_day - (n + 1).hours,

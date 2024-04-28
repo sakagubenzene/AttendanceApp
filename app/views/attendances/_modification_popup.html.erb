@@ -6,10 +6,10 @@
     <%= f.hidden_field :status, value: "modification_request" %>
     
     <%= f.fields_for :message do |m| %>
-      <%= m.collection_select :attendance_to_change_id, current_user.attendances.where.not(status: "settled"), :id, :display_selection, prompt: '選択してください', label: "修正する記録:" %>
+      <%= m.collection_select :attendance_to_change_id, current_user.attendances.where.not(status: ["settled", "unsettled"]), :id, :display_selection, prompt: '選択してください', label: "修正する記録:" %>
     <% end %>
 
-    <%= f.datetime_field :timestamp, id: "attendance_timestamp", label: "修正後の時刻:" %>
+    <%= f.datetime_field :timestamp, id: "attendance_timestamp", label: "修正後の時刻:", value: Time.now.strftime('%Y-%m-%dT%T') %>
 
     <%= f.fields_for :message do |m| %>
       <div class="field"> 

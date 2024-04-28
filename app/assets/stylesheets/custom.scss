@@ -35,9 +35,16 @@
 .user_search, .attendance_search {
   background-color: white;
   display: flex;
+  flex-direction: column;
   * {
     margin-bottom: 0;
     height: 2em;
+  }
+  label {
+    font-size: 1em;
+  }
+  .date_range {
+    display: flex;
   }
   .search_button {
     width: 6em;
@@ -45,6 +52,11 @@
   }
   .search {
     background-color: rgba(68, 118, 188, 0.494);
+  }
+  a {
+    margin: auto;
+    width: 80%;
+    text-align: center;
   }
 }
 
@@ -211,6 +223,7 @@ table {
   border-width:1px;
   border-color: darkgray;
   text-decoration: none;
+  width: fit-content;
   &:hover {
     text-decoration: none;
     color:#333333;

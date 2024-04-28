@@ -9,6 +9,7 @@ class Attendance < ApplicationRecord
                                   message: "%{value} is not a valid status" },
                       presence: true
   validate :valid_status_transition, if: -> { status == "begin" || status == "finish" }
+  validate :valid_timestamp_transition, if: -> { status == "finish" }
   validate :time_check, if: -> { status == "modification_request" }
   
   def status_to_japanese
@@ -43,11 +44,10 @@ class Attendance < ApplicationRecord
   
   private
     def valid_status_transition
-      last_significant_record = user.attendances
-                                    .where('timestamp < ?', timestamp)
+      last_significant_record = Attendance.where(user_id: user_id)
+                                    .where(timestamp: ...timestamp)
                                     .where.not(status: ['modification_request', 'settled', 'unsettled'])
-                                    .order(timestamp: :desc)
-                                    .first
+                                    .last
 
       if last_significant_record.present?
         if status == 'begin' && last_significant_record.status != 'finish'
@@ -55,6 +55,17 @@ class Attendance < ApplicationRecord
         elsif status == 'finish' && last_significant_record.status != 'begin'
           errors.add(:base, '退勤を連続で記録することはできません。')
         end
+      end
+    end
+
+    def valid_timestamp_transition
+      last_begin = Attendance.where(user_id: user_id)
+                             .where(id: ...id)
+                             .where(status: "begin")
+                             .last
+
+      if timestamp < last_begin.timestamp
+          errors.add(:base, '退勤時間は出勤時間の後にしてください。')
       end
     end
 
