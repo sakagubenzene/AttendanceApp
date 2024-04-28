@@ -8,13 +8,13 @@
 
 <%= search_form_for @search, html: { data: { turbo_frame: "users-list" } } do |f| %>
   <%= f.label :name_cont, "氏名で調べる" %>
-  <%= f.search_field :name_cont, placeholder: "氏名を入力", value: params[:q] %>
+  <%= f.search_field :name_cont, placeholder: "氏名を入力", value: params[:q][:name_cont] %>
   <%= f.hidden_field :attendances_status_eq, value: "begin" %>
   <%= f.label :attendances_timestamp_gteq, "出勤日で調べる" %>
   <div class="date_range">
-    <%= f.date_field :attendances_timestamp_gteq, value: params[:q] %>
+    <%= f.date_field :attendances_timestamp_gteq, value: params[:q][:attendances_timestamp_gteq] %>
     〜
-    <%= f.date_field :attendances_timestamp_lteq_end_of_day, value: params[:q] %>
+    <%= f.date_field :attendances_timestamp_lteq_end_of_day, value: params[:q][:attendances_timestamp_lteq_end_of_day] %>
   </div>
   <%= f.submit %>
   <%= link_to "クリア", users_path, class: "button" %>
