@@ -7,7 +7,6 @@ document.addEventListener("turbo:load", function() {
 document.addEventListener("turbo:render", function() {
   if (document.body.id === "new_attendance") {
     setupModalHandlers();
-
   }
 });
 
