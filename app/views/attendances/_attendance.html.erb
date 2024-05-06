@@ -1,12 +1,19 @@
 <th><%= attendance.user.employee_number %></th>
 <th><%= attendance.user.name %></th>
+
 <th>
-  <%= attendance.message.attendance_to_change&.timestamp&.strftime("%m月%d日 %H:%M") %>
-  (<%= attendance.message.attendance_to_change&.status_to_japanese %>)
+    <%= attendance.timestamp.strftime("%m月%d日 %H:%M") %>
+  ~
+    <%= attendance.timestamp.strftime("%m月%d日 %H:%M") %>
+</th>
+
+<th>
+  <%= attendance.message&.attendance_to_change&.timestamp&.strftime("%m月%d日 %H:%M") %>
+  (<%= attendance.message&.attendance_to_change&.status_to_japanese %>)
   →<%= attendance.timestamp.strftime("%m月%d日 %H:%M") %>
 </th>
 <th>
-  <%= attendance.message.content %>
+  <%= attendance.message&.content %>
 </th>
 <th>
   <%= button_to "許可", attendance, data: { turbo_method: :patch,

@@ -6,10 +6,37 @@
 <%= link_to "社員一覧", users_path, class: "button right" %>
 <%= link_to "出勤登録", new_attendance_path, class: "button right low" %>
 
+<%= search_form_for @q, html: { data: { turbo_frame: "attendances-list" } } do |f| %>
+  <% if params[:q] %>
+    <%= f.label :user_name_cont, "氏名で調べる" %>
+    <%= f.search_field :user_name_cont, placeholder: "氏名を入力", value: params[:q][:user_name_cont] %>
+    <%= f.hidden_field :status_eq, value: "begin" %>
+    <%= f.label :timestamp_gteq, "出勤日で調べる" %>
+    <div class="date_range">
+      <%= f.date_field :timestamp_gteq, value: params[:q][:timestamp_gteq] %>
+      〜
+      <%= f.date_field :timestamp_lteq_end_of_day, value: params[:q][:timestamp_lteq_end_of_day] %>
+    </div>
+  <% else %>
+    <%= f.label :user_name_cont, "氏名で調べる" %>
+    <%= f.search_field :user_name_cont, placeholder: "氏名を入力" %>
+    <%= f.hidden_field :status_eq, value: "begin" %>
+    <%= f.label :timestamp_gteq, "出勤日で調べる" %>
+    <div class="date_range">
+      <%= f.date_field :timestamp_gteq %>
+      〜
+      <%= f.date_field :timestamp_lteq_end_of_day %>
+    </div>
+  <% end %>
+  <%= f.submit %>
+  <%= link_to "クリア", attendances_path, class: "button" %>
+<% end %>
+
 <table id="attendances">
   <tr>
     <th>社員番号</th>
     <th>社員名</th>
+    <th>出勤時間~退勤時間</th>
     <th>修正依頼</th>
     <th>修正依頼理由</th>
   </tr>
@@ -19,3 +46,5 @@
     </tr>
   <% end %>
 </table>
+
+<%= paginate @attendances %>

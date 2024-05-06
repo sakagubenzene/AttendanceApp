@@ -11,7 +11,13 @@ class AttendancesController < ApplicationController
   end
 
   def index
-    @attendances = Attendance.where(status:"modification_request").all.includes(user: :messages)
+    @q = Attendance.where(status: "begin").ransack(params[:q])
+    @attendances = Kaminari.paginate_array(@q.result).page(params[:page])
+    begin_tupples= Attendance.order(:user_id).where(status: "begin")
+    finish_tupples= Attendance.order(:user_id).where(status: "finish")
+    begin_tupples.zip(finish_tupples) do |b, f|
+      if 
+    end
   end
 
   def create
