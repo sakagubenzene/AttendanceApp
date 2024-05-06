@@ -11,7 +11,8 @@ class AttendancesController < ApplicationController
   end
 
   def index
-    @attendances = Attendance.where(status:"modification_request").all.includes(user: :messages)
+    @q = Attendance.where(status: "begin").ransack(params[:q])
+    @attendances = Kaminari.paginate_array(@q.result).page(params[:page])
   end
 
   def create

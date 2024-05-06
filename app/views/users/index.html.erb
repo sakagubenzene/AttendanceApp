@@ -3,7 +3,7 @@
   <%= image_tag "signin.svg" %>
   新規登録
 <% end %>
-<%= link_to "修正依頼状況", attendances_path, class: "button right" %>
+<%= link_to "出勤一覧", attendances_path, class: "button right" %>
 <%= link_to "出勤登録", new_attendance_path, class: "button right low" %>
 
 <%= search_form_for @search, html: { data: { turbo_frame: "users-list" } } do |f| %>
