@@ -65,7 +65,7 @@ class Attendance < ApplicationRecord
                              .last
 
       if timestamp < last_begin.timestamp
-          errors.add(:base, '退勤時間は出勤時間の後にしてください。')
+          errors.add(:base, '退勤は出勤の後にしてください。')
       end
     end
 

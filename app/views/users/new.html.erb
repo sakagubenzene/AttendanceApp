@@ -1,4 +1,12 @@
 <% provide(:title, '社員新規登録') %>
 <% provide(:button_text, '新規登録') %>
+
+<%= link_to new_user_path, class: "new_link" do %>
+  <%= image_tag "signin.svg" %>
+  新規登録
+<% end %>
+<%= link_to "出勤一覧",attendances_path, class: "button right" %>
+<%= link_to "社員一覧", users_path, class: "button right low" %>
+
 <h1>社員新規登録</h1>
 <%= render 'form' %>

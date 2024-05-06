@@ -1,4 +1,4 @@
-<% provide(:title, '修正依頼状況') %>
+<% provide(:title, '出勤一覧') %>
 <%= link_to new_user_path, class: "new_link" do %>
   <%= image_tag "signin.svg" %>
   新規登録
@@ -23,9 +23,9 @@
     <%= f.hidden_field :status_eq, value: "begin" %>
     <%= f.label :timestamp_gteq, "出勤日で調べる" %>
     <div class="date_range">
-      <%= f.date_field :timestamp_gteq %>
+      <%= f.date_field :timestamp_gteq, value: Time.zone.today %>
       〜
-      <%= f.date_field :timestamp_lteq_end_of_day %>
+      <%= f.date_field :timestamp_lteq_end_of_day, value: Time.zone.today %>
     </div>
   <% end %>
   <%= f.submit %>
@@ -37,8 +37,12 @@
     <th>社員番号</th>
     <th>社員名</th>
     <th>出勤時間~退勤時間</th>
-    <th>修正依頼</th>
+    <th>出勤時間修正依頼</th>
     <th>修正依頼理由</th>
+    <th></th>
+    <th>退勤時間修正依頼</th>
+    <th>修正依頼理由</th>
+    <th></th>
   </tr>
   <% @attendances.each do |attendance| %>
     <tr>

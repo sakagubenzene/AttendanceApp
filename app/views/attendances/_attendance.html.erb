@@ -4,20 +4,59 @@
 <th>
     <%= attendance.timestamp.strftime("%m月%d日 %H:%M") %>
   ~
-    <%= attendance.timestamp.strftime("%m月%d日 %H:%M") %>
+    <% finish_record = Attendance.where(user_id: attendance.user_id)
+                                  .where(timestamp: attendance.timestamp...)
+                                  .where(status: "finish")
+                                  .last %>
+    <%= finish_record&.timestamp&.strftime("%m月%d日 %H:%M") %>
 </th>
 
-<th>
-  <%= attendance.message&.attendance_to_change&.timestamp&.strftime("%m月%d日 %H:%M") %>
-  (<%= attendance.message&.attendance_to_change&.status_to_japanese %>)
-  →<%= attendance.timestamp.strftime("%m月%d日 %H:%M") %>
-</th>
-<th>
-  <%= attendance.message&.content %>
-</th>
-<th>
-  <%= button_to "許可", attendance, data: { turbo_method: :patch,
-                                  turbo_confirm: "本当に許可しますか" } %>
-  <%= link_to "不許可", attendance, class: "button", data: { turbo_method: :delete,
-                                  turbo_confirm: "本当に許可しませんか" } %>
-</th>
+<% if (messages_for_begin = Message.where(attendance_to_change_id: attendance.id).first) && (messages_for_begin&.attendance&.status == "modification_request") %>
+  <th>
+      <%= messages_for_begin.attendance_to_change.timestamp.strftime("%m月%d日 %H:%M") %>
+      →<%= messages_for_begin.attendance.timestamp.strftime("%m月%d日 %H:%M") %>
+  </th>
+
+  <th>
+    <%= messages_for_begin&.content %>
+  </th>
+  <th>
+    <%= button_to "許可", messages_for_begin&.attendance, data: { turbo_method: :patch,
+                                    turbo_confirm: "本当に許可しますか" } %>
+    <%= link_to "不許可", messages_for_begin&.attendance, class: "button", data: { turbo_method: :delete,
+                                    turbo_confirm: "本当に許可しませんか" } %>
+  </th>
+<% else %>
+  <th></th>
+  <th></th>
+  <th></th>
+<% end %>
+
+
+<% if finish_record %>
+  <% if (messages_for_finish = Message.where(attendance_to_change_id: finish_record.id).first) && (messages_for_finish&.attendance&.status == "modification_request") %>
+    <th>
+          <%= messages_for_finish.attendance_to_change.timestamp.strftime("%m月%d日 %H:%M") %>
+          →<%= messages_for_finish.attendance&.timestamp.strftime("%m月%d日 %H:%M") %>
+    </th>
+
+    <th>
+      <%= messages_for_finish&.content %>
+    </th>
+
+    <th>
+      <%= button_to "許可", messages_for_finish&.attendance, data: { turbo_method: :patch,
+                                      turbo_confirm: "本当に許可しますか" } %>
+      <%= link_to "不許可", messages_for_finish&.attendance, class: "button", data: { turbo_method: :delete,
+                                      turbo_confirm: "本当に許可しませんか" } %>
+    </th>
+  <% else %>
+    <th></th>
+    <th></th>
+    <th></th>
+  <% end %>
+<% else %>
+  <th></th>
+  <th></th>
+  <th></th>
+<% end %>
