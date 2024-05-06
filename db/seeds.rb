@@ -16,26 +16,28 @@ User.create!(
 end
 
 # Attendance
-15.times do |n|
-  # 1~15, user_id:1~15
-  Attendance.create!(
-    user_id: n + 1,
-    timestamp: Time.now.beginning_of_day + n.hours,
-    status: "begin"
-  )
-end
+40.times do |m|
+  15.times do |n|
+    # 1~15, 31~45, ...,1171~1185 , user_id:1~15
+    Attendance.create!(
+      user_id: n + 1,
+      timestamp: Time.now.beginning_of_day - (39 - m).day + n.hours + (m + 2).minutes,
+      status: "begin"
+    )
+  end
 
-15.times do |n|
-  # 16~30, user_id:1~15
-  Attendance.create!(
-    user_id: n + 1,
-    timestamp: Time.now.beginning_of_day + (n + 8).hours,
-    status: "finish"
-  )
+  15.times do |n|
+    # 16~30, 46~60, ..., 1186~1200 user_id:1~15
+    Attendance.create!(
+      user_id: n + 1,
+      timestamp: Time.now.beginning_of_day - (39 - m).day + (n + 8).hours + (m + 2).minutes,
+      status: "finish"
+    )
+  end
 end
 
 5.times do |n|
-  # 31~35, user_id:1~5
+  # 1201~1205, user_id:1~5
   Attendance.create!(
     user_id: n + 1,
     timestamp: Time.now.beginning_of_day - (n + 1).hours,
@@ -45,7 +47,7 @@ end
 
 
 5.times do |n|
-  # 36~40
+  # 1206~1210, user_id:4~8
   Attendance.create!(
     user_id: n + 4,
     timestamp: Time.now.beginning_of_day - (n + 8).hours,
@@ -54,7 +56,7 @@ end
 end
 
 # Message
-(16..20).each do |n|
+(1186..1190).each do |n|
   Message.create!(
     attendance_id: n,
     receiver_id: (n + 1) % 4 + 1,
@@ -62,7 +64,7 @@ end
   )
 end
 
-(21..30).each do |n|
+(1191..1200).each do |n|
   Message.create!(
     attendance_id: n,
     receiver_id: (n + 6) % 10 + 1,
@@ -70,7 +72,7 @@ end
   )
 end
 
-(31..35).each do |n|
+(1201..1205).each do |n|
   Message.create!(
     attendance_id: n,
     attendance_to_change_id: n - 30,
@@ -79,7 +81,7 @@ end
   )
 end
 
-(36..40).each do |n|
+(1206..1210).each do |n|
   Message.create!(
     attendance_id: n,
     attendance_to_change_id: n - 17,
