@@ -7,7 +7,7 @@
     <% finish_record = Attendance.where(user_id: attendance.user_id)
                                   .where(timestamp: attendance.timestamp...)
                                   .where(status: "finish")
-                                  .last %>
+                                  .first %>
     <%= finish_record&.timestamp&.strftime("%m月%d日 %H:%M") %>
 </th>
 
