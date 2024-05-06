@@ -7,7 +7,6 @@ class UsersController < ApplicationController
 
   def index
     @search = User.ransack(params[:q])
-    @search.sorts = 'id desc' if @search.sorts.empty?
     @users = Kaminari.paginate_array(@search.result).page(params[:page])
   end
 
